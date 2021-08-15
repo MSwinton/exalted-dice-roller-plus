@@ -11,10 +11,12 @@ class Roller:
         self.rolls = []
 
         # Rules to be expanded.
-        self.reroll_nums = [1]
+        self.reroll_nums = []
         self.cascading_nums = [10]
         self.success_nums = [7, 8, 9, 10]
         self.dbl_success_nums = [10]
+        self.botch_nums = [1]
+        self.dbl_botch_nums = []
 
 
     '''
@@ -95,7 +97,13 @@ class Roller:
     Given our rolls, determine how many botches were achieved.
     '''
     def determine_botches(self):
-        pass
+        num_of_botches = 0
+        for roll in self.rolls:
+            if roll in self.botch_nums:
+                num_of_botches += 1
+            if roll in self.dbl_botch_nums:
+                num_of_botches += 1
+        print(num_of_botches, ' botches.')
 
 
 
