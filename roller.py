@@ -80,8 +80,14 @@ class Roller:
     '''
     Given our rolls, determine how many successes were achieved.
     '''
-    def deterine_successes(self):
-        pass
+    def determine_successes(self):
+        num_of_successes = 0
+        for roll in self.rolls:
+            if roll in self.success_nums:
+                num_of_successes += 1
+            if roll in self.dbl_success_nums:
+                num_of_successes += 1
+        print(num_of_successes, ' successes.')
 
 
 
