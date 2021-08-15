@@ -87,8 +87,8 @@ class Roller:
         for roll in self.rolls:
             if roll in self.success_nums:
                 num_of_successes += 1
-            if roll in self.dbl_success_nums:
-                num_of_successes += 1
+                if roll in self.dbl_success_nums:
+                    num_of_successes += 1
         print(num_of_successes, ' successes.')
 
 
@@ -101,8 +101,8 @@ class Roller:
         for roll in self.rolls:
             if roll in self.botch_nums:
                 num_of_botches += 1
-            if roll in self.dbl_botch_nums:
-                num_of_botches += 1
+                if roll in self.dbl_botch_nums:
+                    num_of_botches += 1
         print(num_of_botches, ' botches.')
 
 
