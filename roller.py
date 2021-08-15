@@ -13,6 +13,8 @@ class Roller:
         # Rules to be expanded.
         self.reroll_nums = [1]
         self.cascading_nums = [10]
+        self.success_nums = [7, 8, 9, 10]
+        self.dbl_success_nums = [10]
 
 
     '''
