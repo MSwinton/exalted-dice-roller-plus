@@ -28,7 +28,7 @@ class Roller:
 
     '''
     Given out dice pool and rules, roll some dice.
-    This will reroll anything necessary as well as adding/subtractingr rolls.
+    This is currently the only function that gets to roll dice.
     Currently supports:
         reroll_nums
         cascading_nums
@@ -66,3 +66,26 @@ class Roller:
         # Done.
         self.rolls = completed_rolls
         print(completed_rolls)
+
+
+
+    '''
+    Given our rolls, determine how many successes were achieved.
+    '''
+    def deterine_successes(self):
+        pass
+
+
+
+    '''
+    Given our rolls, determine how many botches were achieved.
+    '''
+    def determine_botches(self):
+        pass
+
+
+
+
+
+
+
