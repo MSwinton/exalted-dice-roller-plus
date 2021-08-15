@@ -11,10 +11,11 @@ class Roller:
         self.rolls = []
 
         # Rules to be expanded.
-        self.reroll_nums = [1]
-        self.cascading_nums = [10]
-        self.success_nums = [7, 8, 9, 10]
-        self.dbl_success_nums = [10]
+        self.reroll_nums = [int(num) for num in args.reroll_nums]
+        self.cascading_nums = [int(num) for num in args.cascading_nums]
+        self.botch_nums = [int(num) for num in args.botch_nums]
+        self.success_nums = [int(num) for num in args.success_nums]
+        self.dbl_success_nums = [int(num) for num in args.dbl_success_nums]
 
 
     '''

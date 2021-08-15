@@ -7,12 +7,14 @@ def get_params():
 
     # Normal default options.
     parser.add_argument('dice_pool', type=int)
-    parser.add_argument('--btch', dest='botch_nums', type=list, default=[1])
-    parser.add_argument('--suc', dest='success_nums', type=list, default=[7, 8, 9, 10])
-    parser.add_argument('--dbl', dest='dbl_success_nums', type=list, default=[10])
+    parser.add_argument('--btch', dest='botch_nums', type=int, default=[1], nargs='*')
+    parser.add_argument('--suc', dest='success_nums', type=int, default=[7, 8, 9, 10], nargs='*')
+    parser.add_argument('--dbl', dest='dbl_success_nums', type=int, default=[10], nargs='*')
 
 
     # Normal extra options
+    parser.add_argument('--casc', dest='cascading_nums', type=int, default=[], nargs='*')
+    parser.add_argument('--rr', dest='reroll_nums', type=int, default=[], nargs='*')
 
 
     # Faire Folk Bullshit
