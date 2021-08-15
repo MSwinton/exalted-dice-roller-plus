@@ -18,6 +18,7 @@ def get_params():
 
 
     # Faire Folk Bullshit
+    parser.add_argument('--dbl-btch', dest='dbl_botch_nums', type=int, default=[10], nargs='*')
 
     return parser.parse_args()
 
@@ -29,6 +30,7 @@ def __main__():
     roller = Roller(params)
     roller.determine_rolls()
     roller.determine_successes()
+    roller.determine_botches()
 
 
 __main__()
