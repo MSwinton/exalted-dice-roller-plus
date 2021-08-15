@@ -12,7 +12,7 @@ class Roller:
 
         # Rules to be expanded.
         self.reroll_nums = []
-        self.cascading_nums = [10]
+        self.cascading_nums = []
         self.success_nums = [7, 8, 9, 10]
         self.dbl_success_nums = [10]
         self.botch_nums = [1]
@@ -76,6 +76,7 @@ class Roller:
         # Done.
         self.rolls = completed_rolls
         print(completed_rolls)
+        print("Total dice rolled:", len(completed_rolls))
 
 
 
