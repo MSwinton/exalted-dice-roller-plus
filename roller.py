@@ -7,6 +7,7 @@ class Roller:
 
         self.dice_pool = args.dice_pool
         self.extra_rules = args
+
         self.rolls = []
 
         # Rules to be expanded.
@@ -21,7 +22,7 @@ class Roller:
 
         if num_dice == 1:
             print(f'rolled a {results[0]}')
-            return results[0]
+            return results
         else:
             return results
 
@@ -39,7 +40,6 @@ class Roller:
         completed_rolls = []
 
         # As long as we have rolls to parse...
-        # bug!!! if num_dice=1, something is weird.
         while working_rolls:
 
             # Check each roll and apply rules.
@@ -49,14 +49,14 @@ class Roller:
                 # Reroll n's.
                 while roll in self.reroll_nums:
                     print(f'Rerolling {roll}...')
-                    new_roll = self.roll_dice()
+                    new_roll = self.roll_dice()[0]
                     working_rolls[roll_num] = new_roll
                     roll = new_roll
 
                 # Cascading n's
                 if roll in self.cascading_nums:
                     print('Cascade!')
-                    new_roll = self.roll_dice()
+                    new_roll = self.roll_dice()[0]
                     added_rolls.append(new_roll)
 
             # Transition working rolls to completed, any added rolls become new working rolls.
