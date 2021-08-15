@@ -19,6 +19,7 @@ def get_params():
 
     # Faire Folk Bullshit
     parser.add_argument('--dbl-btch', dest='dbl_botch_nums', type=int, default=[10], nargs='*')
+    parser.add_argument('--botch-anyway', dest='botch_anyway', type=bool, default=False)
 
     return parser.parse_args()
 

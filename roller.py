@@ -6,9 +6,11 @@ class Roller:
     def __init__(self, args):
 
         self.dice_pool = args.dice_pool
-        self.extra_rules = args
+        self.rules = args
 
         self.rolls = []
+        self.successes = None
+        self.botches = None
 
         # Rules to be expanded.
         self.reroll_nums = [int(num) for num in args.reroll_nums]
@@ -91,6 +93,7 @@ class Roller:
                 if roll in self.dbl_success_nums:
                     num_of_successes += 1
         print(num_of_successes, ' successes.')
+        self.successes = num_of_successes
 
 
 
@@ -99,12 +102,17 @@ class Roller:
     '''
     def determine_botches(self):
         num_of_botches = 0
-        for roll in self.rolls:
-            if roll in self.botch_nums:
-                num_of_botches += 1
-                if roll in self.dbl_botch_nums:
+
+        if self.successes == 0 or self.rules.botch_anyway:
+            for roll in self.rolls:
+                if roll in self.botch_nums:
                     num_of_botches += 1
+                    if roll in self.dbl_botch_nums:
+                        num_of_botches += 1
+
+
         print(num_of_botches, ' botches.')
+        self.botches = num_of_botches
 
 
 
