@@ -15,7 +15,7 @@ class Roller:
 
 
     def roll_dice(self, num_dice=1):
-        results = [-1] * num_dice
+        results = ["haven't rolled yet."] * num_dice
         for roll_num in range(len(results)):
             results[roll_num] = random.randrange(10) + 1
 
@@ -39,6 +39,7 @@ class Roller:
         completed_rolls = []
 
         # As long as we have rolls to parse...
+        # bug!!! if num_dice=1, something is weird.
         while working_rolls:
 
             # Check each roll and apply rules.
