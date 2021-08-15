@@ -26,6 +26,7 @@ def __main__():
 
     roller = Roller(params)
     roller.determine_rolls()
+    roller.determine_successes()
 
 
 __main__()
