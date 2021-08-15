@@ -14,14 +14,6 @@ class Roller:
         self.reroll_nums = [1]
         self.cascading_nums = [10]
 
-        # Optional outputs & other crap.
-        self.verbose_output = ''
-
-
-    def print_verbose(self):
-        if self.args['verbose']:
-            print(self.verbose_output)
-
 
     '''
     Rolls n dice.
