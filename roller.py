@@ -105,7 +105,10 @@ class Roller:
     Given our rolls, determine how many successes were achieved.
     '''
     def determine_successes(self):
-        num_of_successes = 0
+        num_of_successes = self.rules.auto_successes
+
+        if num_of_successes:
+            print(f'{num_of_successes} automatic successes...')
 
         for roll in self.rolls:
             num_of_successes += self.success_vals[roll - 1]
@@ -119,15 +122,22 @@ class Roller:
     Given our rolls, determine how many botches were achieved.
     '''
     def determine_botches(self):
-        num_of_botches = 0
 
-        if self.successes == 0 or self.rules.botch_anyway:
+        if self.successes and not self.rules.botch_anyway:
+            self.botches = 0
+
+        else:
+            num_of_botches = self.rules.auto_botches
+
+            if num_of_botches:
+                print(f'{num_of_botches} automatic botches...')
+
             for roll in self.rolls:
                 num_of_botches += self.botch_vals[roll - 1]
 
 
-        print(num_of_botches, ' botches.')
-        self.botches = num_of_botches
+            print(num_of_botches, ' botches.')
+            self.botches = num_of_botches
 
 
 
