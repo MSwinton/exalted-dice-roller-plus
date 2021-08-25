@@ -5,18 +5,37 @@ class Roller:
 
     def __init__(self, args):
 
-        self.dice_pool = args.dice_pool
-        self.extra_rules = args
+        self.rules = args
 
-        self.rolls = []
+        self.rolls = None
+        self.successes = None
+        self.botches = None
 
         # Rules to be expanded.
         self.reroll_nums = [int(num) for num in args.reroll_nums]
         self.cascading_nums = [int(num) for num in args.cascading_nums]
-        self.botch_nums = [int(num) for num in args.botch_nums]
-        self.success_nums = [int(num) for num in args.success_nums]
-        self.dbl_success_nums = [int(num) for num in args.dbl_success_nums]
-        self.dbl_botch_nums = [int(num) for num in args.dbl_botch_nums]
+
+        # Set successes and botch values
+        self.set_success_botch_vals()
+
+
+    '''
+    Determines how many successes/botches each number is worth.
+    Sets self.success_vals and self.botch_vals
+    '''
+    def set_success_botch_vals(self):
+
+        # Successes
+        base_successes = [int(num) for num in self.rules.base_successes]
+        adtl_successes = [int(num) for num in self.rules.adtl_successes]
+        success_multipliers = [int(num) for num in self.rules.success_multipliers]
+        self.success_vals = [(base_successes[i] + adtl_successes[i]) * success_multipliers[i] for i in range(10)]
+
+        # Successes
+        base_botches = [int(num) for num in self.rules.base_botches]
+        adtl_botches = [int(num) for num in self.rules.adtl_botches]
+        botch_multipliers = [int(num) for num in self.rules.botch_multipliers]
+        self.botch_vals = [(base_botches[i] + adtl_botches[i]) * botch_multipliers[i] for i in range(10)]
 
 
     '''
@@ -44,7 +63,7 @@ class Roller:
         cascading_nums
     '''
     def determine_rolls(self):
-        working_rolls = self.roll_dice(num_dice=self.dice_pool)
+        working_rolls = self.roll_dice(num_dice=self.rules.dice_pool)
         added_rolls = []
         completed_rolls = []
 
@@ -74,6 +93,8 @@ class Roller:
             added_rolls = []
 
         # Done.
+        if not self.rules.no_sort:
+            completed_rolls.sort()
         self.rolls = completed_rolls
         print(completed_rolls)
         print("Total dice rolled:", len(completed_rolls))
@@ -84,13 +105,16 @@ class Roller:
     Given our rolls, determine how many successes were achieved.
     '''
     def determine_successes(self):
-        num_of_successes = 0
+        num_of_successes = self.rules.auto_successes
+
+        if num_of_successes:
+            print(f'{num_of_successes} automatic successes...')
+
         for roll in self.rolls:
-            if roll in self.success_nums:
-                num_of_successes += 1
-                if roll in self.dbl_success_nums:
-                    num_of_successes += 1
+            num_of_successes += self.success_vals[roll - 1]
+
         print(num_of_successes, ' successes.')
+        self.successes = num_of_successes
 
 
 
@@ -98,13 +122,22 @@ class Roller:
     Given our rolls, determine how many botches were achieved.
     '''
     def determine_botches(self):
-        num_of_botches = 0
-        for roll in self.rolls:
-            if roll in self.botch_nums:
-                num_of_botches += 1
-                if roll in self.dbl_botch_nums:
-                    num_of_botches += 1
-        print(num_of_botches, ' botches.')
+
+        if self.successes and not self.rules.botch_anyway:
+            self.botches = 0
+
+        else:
+            num_of_botches = self.rules.auto_botches
+
+            if num_of_botches:
+                print(f'{num_of_botches} automatic botches...')
+
+            for roll in self.rolls:
+                num_of_botches += self.botch_vals[roll - 1]
+
+
+            print(num_of_botches, ' botches.')
+            self.botches = num_of_botches
 
 
 
